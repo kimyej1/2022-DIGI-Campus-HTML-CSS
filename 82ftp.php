@@ -84,9 +84,12 @@
         </div>
     <?php
 
-    // 탐색기처럼 만들기
+    // 디렉토리 넣을 좌측 테이블 만들기
     echo "
         <table class='table'>
+            <tr>
+                <td>
+                    <table class='table'>
     ";
 
     $dirCnt = 0;
@@ -106,6 +109,14 @@
         $dirCnt ++;
     }
 
+    // 파일 넣을 우측 테이블 만들기
+    echo "
+                    </table>
+                </td>
+                <td>
+                    <table class='table'>
+    ";
+
     $fileCnt = 0;
     while(isset($files[$fileCnt]))
     {
@@ -122,6 +133,9 @@
     }
 
     echo "
+                    </table>
+                </td>
+            </tr>
         </table>
     ";
 ?>
