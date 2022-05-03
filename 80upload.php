@@ -8,6 +8,13 @@
         return $fileInfo["extension"];
     }
 
+    function makeFileName()
+    {
+        // 20220503123456 형식으로 yyyyMMddhhmmss
+        $current = Date('YmdHis');
+        return $current;
+    }
+
     if(isset($_GET["mode"]) and $_GET["mode"]=="up")
     {
         // file upload..
@@ -20,6 +27,15 @@
             $fileName = $_FILES["upfile"]["name"];  // 매번 쓰기 귀찮으니까 변수로 만들기
             $ext = getFileExt($fileName);           // 확장자 찾는 함수_ 맨 위에 만들어둠
             echo "ext = $ext <br>";
+            $now = makeFileName();
+            echo "now = $now <br>";
+            $saveFile = "$now.$ext";
+
+            // copy
+            // chmod("data", 0777);
+            // chmod("data/secure", 0777); // 디렉토리 권한주기
+            move_uploaded_file($_FILES["upfile"]["tmp_name"], "data/secure/$saveFile");    // data/secure로 복사
+
         } else
         {
             echo "No File..<br>";

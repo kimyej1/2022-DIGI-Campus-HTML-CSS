@@ -165,7 +165,8 @@
 								<li class="nav-item dropdown ms-3">
 									<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Secure</a>
 									<ul class="dropdown-menu">
-										<li><a class="dropdown-item" href="main.php?cmd=80upload">Insert</a></li>
+										<li><a class="dropdown-item" href="main.php?cmd=80upload">File Upload</a></li>
+										<li><a class="dropdown-item" href="main.php?cmd=82ftp">FTP</a></li>
 									</ul>
 								</li>
 
