@@ -26,7 +26,7 @@
 <html lang="ko"> 
 	<head> 
 		<meta charset="UTF-8"> 
- 		<title>💛 국민은행</title> 
+ 		<title>🌱 국민은행</title> 
  		<meta name="viewport" 
  			content="width=device-width, maximum-scale=3.0, user-scalable=yes"> 
 		<link rel="icon" type="image/png" href="./images/kblogo.png" sizes="96x96"> <!--웹 탭에 이미지 넣기-->
