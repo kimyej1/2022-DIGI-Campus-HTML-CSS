@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+
+    <body>
+        <form>
+            <input type="text" id="input">
+            <input type="button" value="OK" onClick="addUser()"> <!-- 버튼 쓰는 또다른 방법.. -->
+            <input type="button" value="Del" onClick="deleteUser()">
+        </form>
+
+        <div id="list">
+
+        </div>
+
+    <!--
+        DOM 문서객체모델 = document의 object model
+
+        [body] > [h1]
+        [body] > [p] > [div]
+        [body] > [img]
+        이런 덩어리들을 '노드'라고 한다.
+    -->
+        <h1 id="head" class="hit">제목</h1>
+        <p>본문 
+            <div>Div 1</div>
+            <div id="mydiv"><b>Bold</b>Div 2</div>
+        </p>
+        <img id='son' src="data/img/son.jpg" width="300" height="100"> 
+        src : attribute(속성)
+        <div class="hit third">third div</div>
+
+        <script>
+            function deleteUser()
+            {
+                let pList = document.querySelectorAll('#list>p'); // list 밑의 p태그를 모두 찾아라
+                // pList[0].removeChild
+            }
+
+            function addUser()
+            {
+                let input = document.querySelector('#input');
+                let list = document.querySelector('#list');
+
+                let pTag = document.createElement('p'); // p태그를 메모리속에만 만들어준다.
+                let pTextNode = document.createTextNode('<b>' + input.value + '</b>'); 
+                // input으로 입력받은 글자를 텍스트노드 하나 만들어서 저장 
+                // ('text'node이기 때문에 태그 넣어도 텍스트로 인식해서 그대로 출력; b태그도 createElement로 만들어야됨)
+
+                pTag.appendChild(pTextNode); // 텍스트노드를 p태그에 append(맨 뒤에 붙임)
+                list.appendChild(pTag); // p태그를 list에 append
+                input.value = "";
+            }
+
+            function showInfo()
+            {
+                alert('show info');
+            }
+
+            console.log(document.getElementById('mydiv').innerText);
+            console.log(document.getElementById('mydiv').innerHTML);
+            
+            let head = document.querySelector('#head');
+            console.log("head = " + head); // 객체라서 내용 안불러오고 객체 그자체 불러옴
+
+            let div = document.getElementsByTagName('div'); // tag가 div인 것들을 모아둔 '배열'
+            console.log('div length = ' + div.length);
+
+            for(let i = 0; i < div.length; i++)
+            {
+                console.log('div[' + i + '] = ' + div[i].innerText);
+                div[i].innerHTML = i + 'th div';
+            }
+
+            let qsDiv = document.querySelectorAll('div'); // *** querySelector은 맨앞에있는거 하나만 찾아온다(All 필수!!)
+            console.log('qsDiv len = ' + qsDiv.length);
+            let hitClass = document.querySelectorAll('.hit');
+            console.log('hitClass len = ' + hitClass.length);
+
+            let divHit = document.querySelectorAll("div.hit"); // div인 hit만 찾기(h1인 hit는 빼고!)
+            console.log("divHit len = " + divHit.length);
+            let hitThird = document.querySelectorAll(".hit.third"); // class hit이면서 && class third인 것 찾기
+            console.log("hitThird len = " + hitThird.length);
+
+            let img = document.querySelector('#son');
+            // getter
+            console.log('img src = ' + img.getAttribute('src'));
+            console.log('img height = ' + img.getAttribute('height'));
+            // setter
+            img.setAttribute('height', 200);
+            img.setAttribute('src', 'data/img/paris.jpeg');
+
+            img.onclick = showInfo; // showInfo()로 쓰지 않고 이름만 씀 : function pointer
+
+            head.style.backgroundColor = '#FFFF00';
+            head.addEventListener('click', function(){ // function pointer 대신 ES6의 anonymous함수처럼 사용해보기
+                alert('this is heading');
+            }); 
+        </script>
+    </body>
+</html>

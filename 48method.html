@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col colLine">
+        <ul>
+            <li>item 1</li>
+            <li>item 2</li>
+            <li>item 3</li>
+            <li>item 4</li>
+            <li>item 5</li>
+        </ul>
+        <p>i am p tag</p>
+    </div>
+</div>
+
+<script>
+    function doAct()
+    {
+        $('li').add("div > p").css('background', '#abcdef');
+        // li 각각에 div, p태그 넣고 css적용
+        // <li> item 1 <div><p></p></div></li> 이렇게 만들었음
+
+        $('div').find('p').addClass("text-danger");
+        // JS : document.querySelector('#myid').className=''; -> 이걸 .addClass()로!
+    }
+    doAct();
+</script>

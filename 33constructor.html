@@ -1,0 +1,22 @@
+<script>
+    // 객체처럼 사용할 함수
+    function Book(author, title, price)
+    {
+        this.author = author;
+        this.title = title;
+        this.price = price;
+    }
+
+    function Car(name, speed)
+    {
+        this.name = name;
+        this.speed = speed;
+    }
+
+    let js = new Book("홍길동", "자바스크립트 정복", 12000);
+    console.log("js = " + js); // 객체(object)
+    console.log("js.title = " + js.title);
+
+    let taxi = new Car("taxi", 77);
+    console.log("taxi.name = " + taxi.name);
+</script>

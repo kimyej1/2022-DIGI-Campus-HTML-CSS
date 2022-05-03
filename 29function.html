@@ -1,0 +1,108 @@
+<div class="row mt-5 text-center fw-bold">
+    <div class="col">op1</div>
+    <div class="col">op2</div>
+    <div class="col">result</div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <input type="text" id="op1" class="form-control text-end" placeholder="0" onKeyUp="calculate()">
+    </div>
+    <div class="col">
+        <input type="text" id="op2" class="form-control text-end" placeholder="0" onKeyUp="calculate()">
+    </div>
+    <div class="col">
+        <input type="text" id="result" class="form-control text-end" placeholder="0" readonly>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <input type="text" id="op3" class="form-control text-end" placeholder="0">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <textarea class="form-control" row="10" id="debug"></textarea>
+    </div>
+</div>
+
+<script>
+
+    function fact(n)
+    {
+        if(n==1)
+            return 1;
+        return n * fact(n-1) // recursive 재귀함수
+    }
+
+    var f = fact(5);
+    console.log("5! = " + f);
+    /*
+        let : ES6 JS    () => {} 최근 버전의 함수 정의하는 방법!(var와 비슷하지만 좀 더 작은 범위)
+
+        a = 3; -> 전역변수 global variable (아무데서나 쓸 수 있는 변수)
+        var x; -> 지역변수 local variable (자신을 둘러싼 영역 안에서만 사용하는 변수)
+
+        Variable Lifescope 변수의 생존범위
+    */
+
+    function calculate()
+    {
+        gValue = 300; // var라는 말이 없으므로 '전역변수' ** 전역변수는 만들고 안쓰면 메모리 낭비가 될 수 있어서, 주로 g를 붙이는 등 따로 관리함!
+        var vValue = 20; // '지역변수'
+
+        var op1 = document.querySelector('#op1');
+        var op2 = document.querySelector('#op2');
+        var result = document.querySelector('#result');
+
+        result.value = Number(op1.value) + Number(op2.value)+ gValue + vValue; // 괄호 안쪽이므로 gValue, vValue 모두 불러올 수 있음
+        myFunction();
+
+        if(isNaN(result.value))
+            alert("Not a Number");
+    }
+
+    function myFunction()
+    {
+        var debug = document.querySelector("#debug");
+
+        // const : read only variable 초기에 딱 한번 선언되어 초기화되면, 이후에 사용하지 못함 (Java의 final 변수와 비슷)
+        const pi = 3.14; // pi = pi + 1; --> 이렇게 덮어쓰는(write) 것을 허용하지 않음
+
+        for(let i=1; i<=10; i++)
+        {
+            sum += i;
+        }
+
+        debug.value = "gValue = " + gValue + ", y = " + y + ", sum = " + sum; 
+        /*
+            'y = undefined' 라고 출력됨 (뒷쪽에 변수 선언되어있으면 앞에 var y; 이렇게만 쓴 효과를 주고 에러내지 않음)
+                                    (그치만 뒤에 선언된 y가 let y = xxx; 이면, undefined가 아니라 에러 발생!!!)
+        */
+
+        let addSum = add(3,4); // calculator가 myFunction을 호출하고, myFunction이 add를 호출~
+        console.log("addSum = " + addSum);
+
+        /*
+            변수 안에 함수 정의하기
+            함수는 두번 이상 반복되면 만드는데, 변수 안에 넣을 땐 '단발성'으로 쓰고싶을 때..
+        */ 
+        var foo = ( function() {
+            console.log("foo....");
+            return 77;
+        }() );
+        console.log("after foo = " + foo);
+
+        debug.value += "vValue = " + vValue; // gValue는 괄호 밖이어도 불러오기 가능, vValue는 불가능
+
+        var y = 100;
+        var y = 77; // Java에서는 이렇게 하면 안되지만, js는 덮어써서 재정의해줌!
+    }
+
+    function add(a, b) // 파라미터 자리에는 var 이런거 안쓰고 딱 이름만 쓴다
+    {
+        var sum = a + b;
+        return sum;
+    }
+</script>

@@ -1,0 +1,102 @@
+<div class="row mt-5">
+    <div class="col-2">팝업</div>
+    <div class="col">
+        <button type="button" class="btn btn-primary form-control" onClick="popWindow()">팝업 생성</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col"></div>
+</div>
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col"></div>
+</div>
+
+<div id="display"></div>
+
+<script>
+    function popWindow()
+    {
+        // window.alert('pop')
+        // window로 띄워주니까(기본 기능 : built-in) 원래는 window.alert인데, window는 생략가능
+
+        for(let i=1; i<=5; i++)
+        {
+            let j = i * 50;
+            window.open('pop.html', 'kbPopWindow' + i, 'top=' + j + ', left=' + j +', width=500, height=300, resizable=yes'); 
+            // 이름이 같으면 계속 덮어쓰니까 이름에 i 덧붙임 : kbPopWindow1, kbPopWindow2,...
+        }        
+        // 이름이 kbPopWindow야 -> 뒤에서 다른 팝업을 kbPopWindow로 또 이름지으면, 이 팝업을 계속 덮어쓰면서 깔끔하게 뜸
+        // 일정한 간격으로 여러개가 뜨도록 팝업의 위/왼쪽 여백 지정 + 높이/너비 지정
+    }
+
+    var now = new Date(); // 시스템에서 기본으로 제공해주는 Class
+    console.log("now = " + now);
+    console.log("now2 = " + now.toLocaleString()); // 한국식으로~
+
+    let birth = new Date('2000-01-01'); // 날짜를 주고 객체를 만들 수도 있음
+    console.log("now = " + new Date()); // "now = " + now 랑 똑같음
+    console.log("birth = " + birth);
+
+    // YYYY-MM-DD hh:mm:ss
+    // getFullYear() : 네자리(full)로 연도정보 가져오기
+    console.log('getFullYear = ' + now.getFullYear());
+    console.log('getMonth = ' + now.getMonth()); // 0부터 계산하므로 +1해야 우리가 보는 월로 출력함
+    console.log('getDate = ' + now.getDate());
+    console.log('getDay = ' + now.getDay()); // '월요일 = 1'로 표시
+    console.log('getTime = ' + now.getTime()); // 1970-01-01 기준으로부터 밀리세컨단위의 시간
+    console.log('getHours = ' + now.getHours()); // 0~23시
+    console.log('getMinutes = ' + now.getMinutes());
+    console.log('getSeconds = ' + now.getSeconds());
+    console.log('getMilliseconds = ' + now.getMilliseconds());
+
+    let diff = now.getTime() - birth.getTime();
+    console.log('diff = ' + diff);
+    console.log('diff sec = ' + Math.floor(diff/1000)); // ms는 1초를 1000으로 표현하니까, /1000을 해주면 초단위로 변환됨
+    console.log('diff min = ' + Math.floor(diff/1000/60));
+    console.log('diff hour = ' + Math.floor(diff/1000/60/60));
+    console.log('diff day = ' + Math.floor(diff/1000/60/60/24));
+    console.log('diff year = ' + Math.floor(diff/1000/60/60/24/365));
+
+    console.log("Random = " + Math.random()); // Java와 같이 0~1 사이의 랜덤값(double)
+    console.log("Random floor = " + Math.floor(Math.random() * 100)); // 0~100 사이의 랜덤값 (floor : 내림)
+    console.log("Random ceil = " + Math.ceil(Math.random() * 100)); // 0~100 사이의 랜덤값 (ceil : 올림)
+
+    // 사용자 객체 정의
+    var book = {
+        title : "javascript",
+        author : 'Hong Kil Dong',
+        price : 12300,
+        page : 700,
+        info : function() {
+            console.log('book info...js');
+        }
+    };
+
+    // 연관배열 assosiative array : dictionary/map data
+    // array[1] 이렇게 인덱스(첨자) 사용하는 대신 dictionary['apple'] 이렇게 key값을 문자열로 사용해서 검색한다.
+
+    let xxx = 'page';
+    console.log('title = ' + book.title); // book["title"] 이렇게 쓰는거랑 똑같음
+    console.log('title = ' + book["title"]);
+    console.log('page = ' + book[xxx]); // 큰따옴표가 없으면 변수로 인식한다.
+
+
+    // 달력 만들기 : 첫 요일이 무슨요일인지를 결정해야 한다.
+    let year = birth.getFullYear();
+    console.log('year = ' + year);
+    let month = birth.getMonth() + 1;
+
+    if(month < 10)
+        month = "0" + month;
+
+    let firstDayMonth = year + "-" + month + "-01"; // birth 달의 1일
+    console.log('firstDayMonth = ' + firstDayMonth);
+    
+    let tmp = new Date(firstDayMonth);
+    console.log("요일 = " + tmp.getDay()); // 6 -> 토요일
+
+    let display = document.querySelector('#display');
+    display.innerHTML = '<div class="row"> <div class="col">일</div> <div class="col">월</div> </div>';
+</script>

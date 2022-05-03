@@ -1,0 +1,191 @@
+<!--
+    input에 값을 입력하자마자..
+    1~input의 합을 display에 출력하시오.
+-->
+
+<div class="row">
+    <div class="col">
+        <input type="text" id="input" class="form-control" onKeyUp="sumTest()">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <input type="number" id="number" value='0' class="form-control" onChange="total()">
+        <!-- onChange : type='number'은 화살표로 위아래 움직이면서 값이 변하니까, 바뀔때마다 발생하는 이벤트 -->
+    </div>
+</div>
+
+<div class="row">
+    <div class="col" id="display">
+
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col">
+        <button type="button" class="btn btn-outline-success form-control" onMouseOver="set99()" onMouseOut="clear99()">구구단표 For</button>
+        <!-- onMouseOver : 마우스오버 할 때 발생하는 이벤트 -->
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col">
+        <button type="button" class="btn btn-outline-primary form-control" onMouseOver="setTable()" onMouseOut="clearTable()">구구단표 While</button>
+    </div>
+</div>
+
+<div class="row border mb-5">
+    <div class="col" id="table1"></div>
+    <div class="col" id="table2"></div>
+    <div class="col" id="table3"></div>
+    <div class="col" id="table4"></div>
+    <div class="col" id="table5"></div>
+    <div class="col" id="table6"></div>
+    <div class="col" id="table7"></div>
+    <div class="col" id="table8"></div>
+    <div class="col" id="table9"></div>
+</div>
+
+<!--
+    3월 1일 화요일..
+    3월 달력 출력하기
+    (선생님풀이 업슴... 틀렸을것같다)
+-->
+
+<div class="row">
+    <div class="col">
+        <button class="brn btn-primary form-control text-center fw-bold" onClick="marchCal()">3월 Calendar</button>
+    </div>
+</div>
+<div class="row text-center fw-bold">
+    <div class="col text-danger">일</div>
+    <div class="col">월</div>
+    <div class="col">화</div>
+    <div class="col">수</div>
+    <div class="col">목</div>
+    <div class="col">금</div>
+    <div class="col text-primary">토</div>
+</div>
+<div class="row text-center">
+    <div class="col text-danger" id="day6"><br></div>
+    <div class="col" id="day0"><br></div>
+    <div class="col" id="day1"></div>
+    <div class="col" id="day2"></div>
+    <div class="col" id="day3"></div>
+    <div class="col" id="day4"></div>
+    <div class="col text-primary" id="day5"></div>
+</div>
+
+<script>
+
+    function marchCal()
+    {
+        var n;
+
+        for(var i=1; i<=31; i++)
+        {
+
+            if(n = (i+7)%7)
+            {
+                var march = document.querySelector('#day' + n);
+                march.innerHTML += i + '<br>';
+            } else if((i+7)%7 == 0)
+            {
+                var march = document.querySelector('#day0');
+                march.innerHTML += i + '<br>';
+            }
+        }
+    }
+    
+
+    function setTable()
+    {
+        console.log("setTable");
+        var i=1;
+
+        while(i<10)
+        {
+            var n=1;
+            var myTable = document.querySelector('#table' + i);
+
+            while(n<10)
+            {
+                myTable.innerHTML += i * n + '<br>';
+                n++;
+            }
+            i++;
+        }
+    }
+
+    function clearTable()
+    {
+        console.log("clearTable");
+        var i=1;
+
+        while(i<10)
+        {
+            var myTable = document.querySelector('#table' + i);
+            myTable.innerHTML = "";
+            i++;
+        }
+    }
+
+    function clear99()
+    {
+        console.log("clear99");
+        for(var i=1; i<10; i++)
+        {
+            var myTable = document.querySelector('#table' + i);
+            myTable.innerHTML =  "";
+        }
+    }
+
+    function set99()
+    {
+        console.log("set99");
+        for(var i=1; i<10; i++)
+        {
+            var myTable = document.querySelector('#table' + i);
+            
+            for(var n=1; n<10; n++)
+            {
+                myTable.innerHTML += (i * n) + "<br>";
+            }
+        }
+        
+    }
+
+    function total()
+    {
+        var number = Number(document.querySelector('#number').value);
+        var display = document.querySelector('#display');
+        var sum = 0;
+
+        if(number < 0)
+        {
+            alert("0 이상만 가능합니다.")
+            document.querySelector('#number').value = '0';
+            return; // 이 함수 끝! (음수일때는 뒤로 진행되지 않도록)
+        }
+
+        for(var num=1; num<=number; num++)
+        {
+            sum += num;
+        }
+        display.innerHTML = "sum = "+ "<span class='fw-bold text-primary'>" + sum + '</span>';
+    }
+
+    function sumTest()
+    {
+        var input = Number(document.querySelector('#input').value);
+        var display = document.querySelector('#display');
+        var sum = 0;
+
+        for(var num=1; num<=input; num++)
+        {
+            sum += num;
+        }
+        display.innerHTML = "sum = "+ "<span class='fw-bold text-primary'>" + sum + '</span>';
+    }
+</script>

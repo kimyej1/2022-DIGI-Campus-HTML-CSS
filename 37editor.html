@@ -1,0 +1,82 @@
+WYSIWYG<br>
+: What you see is what you get
+
+<script>
+    function setCommand(cmd) // bold, italic
+    {
+        var editor = document.querySelector('#editor');
+        var html = document.querySelector('#html');
+        var content = document.querySelector('#content');
+        document.execCommand(cmd);
+
+        html.innerHTML = editor.innerHTML; // HTML 코드까지 가져옴
+        content.innerText = editor.innerText; // 딱 텍스트만 가져옴
+    }
+    
+    function setHTML() // exec만 빼고 타이핑 할때마다 밑에 창 두개에 옮겨지게 하는 코드
+    {
+        var editor = document.querySelector('#editor');
+        var html = document.querySelector('#html');
+        var content = document.querySelector('#content');
+
+        html.innerHTML = editor.innerHTML;
+        content.innerText = editor.innerText;
+    }
+
+    function setFontColor(rgb)
+    {
+        var editor = document.querySelector('#editor');
+        var html = document.querySelector('#html');
+        var content = document.querySelector('#content');
+        document.execCommand('foreColor', false, rgb);
+
+        html.innerHTML = editor.innerHTML;
+        content.innerText = editor.innerText;
+    }
+</script>
+
+<div class="row mt-3">
+    <div class="col">
+        <button type="button" class="btn btn-secondary btn-sm" onClick="setCommand('bold')">
+            <span class="material-icons icon">format_bold</span>
+        </button>
+        <button type="button" class="btn btn-secondary btn-sm" onClick="setCommand('italic')">
+            <span class="material-icons icon">format_italic</span>
+        </button>
+        <button type="button" class="btn btn-secondary btn-sm" onClick="setCommand('underline')">
+            <span class="material-icons icon">format_underlined</span>
+        </button>
+    </div>
+    <div class="col">
+        <div class="dropdown">
+            <button type="button" class="btn btn-light dropdown-toggle border" data-bs-toggle="dropdown">
+                <span class="material-icons icon text-danger">format_color_text</span>
+            </button>
+            <ul class="dropdown-menu">
+              <li class="text-center">
+                  <button type="button" class="btn btn-light border btn-sm text-danger" onClick="setFontColor('#FF0000')">가</button>
+                  <button type="button" class="btn btn-light border btn-sm text-primary" onClick="setFontColor('#0000FF')">가</button>
+                  <button type="button" class="btn btn-light border btn-sm text-success" onClick="setFontColor('green')">가</button>
+                  <button type="button" class="btn btn-light border btn-sm text-warning" onClick="setFontColor('yellow')">가</button>
+                  <button type="button" class="btn btn-light border btn-sm text-dark" onClick="setFontColor('#000000')">가</button>
+              </li>
+            </ul>
+          </div>
+    </div>
+</div>
+<div class="row">
+    <!--textarea와 똑같이 동작하는 div (overflow-y : auto -> textarea처럼 자동으로 스크롤이 생김)-->
+    <div class="col border" id="editor" onKeyUp='setHTML()' contenteditable="true" style="height:500px; overflow-y:auto">
+    
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <textarea id='html' class="form-control" rows="5"></textarea>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <textarea id='content' class="form-control" rows="5"></textarea>
+    </div>
+</div>

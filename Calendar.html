@@ -1,0 +1,121 @@
+<!doctype html> 
+<html lang="ko"> 
+	<head> 
+		<meta charset="UTF-8"> 
+ 		<title>국민은행</title> 
+ 		<meta name="viewport" 
+ 			content="width=device-width, maximum-scale=3.0, user-scalable=yes"> 
+		<link rel="icon" type="image/png" href="./images/kblogo.png" sizes="96x96"> <!--웹 탭에 이미지 넣기-->
+ 		<link href="./css/Style.css" rel="stylesheet" type="text/css">  
+ 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> 
+ 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+ 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> 
+              <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"> 
+ 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> 
+
+		<script src="js/kbstar.js"></script>
+ 	</head> 
+<body>
+<!--
+	입력창을 input='date'로 만들고,
+	날짜가 선택되면 해당 월의 달력을 출력하시오. (JS, BS5)
+-->
+<div class="container">
+	<div class="row mt-5">
+		<div class="col-3">날짜 선택</div>
+		<div class="col">
+			<input type="date" class="form-control" onChange="printCalendar(this)">
+		</div>
+	</div>
+	<div id="display">
+
+	</div>
+
+	<script>
+		function printCalendar(obj)
+		{
+			// alert(obj.value);
+			let objDate = new Date(obj.value);
+
+			// 첫날이 무슨요일인지 찾기
+			let objYear = objDate.getFullYear();
+			console.log("objYear = " + objYear);
+			let objMonth = objDate.getMonth() + 1;
+			if (objMonth < 10)
+				objMonth = "0" + objMonth;
+			console.log("objMonth = " + objMonth);
+			let firstDay = objYear + "-" + objMonth + "-01";
+			let cal = new Date(firstDay);
+			fDay = cal.getDay();
+			console.log("첫날은 무슨요일? : " + fDay);
+			
+			// 몇일까지 있는지 찾기(31,30,28일...)
+			//		let test = new Date(2022,2,0); // 날짜가 0으로 채워짐
+			// 		test.getDate() // 이달의 마지막날 결정
+			let test = new Date(objYear, objMonth, 0);
+			lDay = test.getDate();
+			console.log("몇일까지 있나? : " + lDay);
+
+			// 내가 선택(클릭)한 날짜 찾기
+			let objDay = objDate.getDate();
+			console.log("선택한 날짜 : "+ objDay);
+
+			// 달력 그리기
+			let display = document.querySelector('#display');
+			display.innerHTML = "";
+
+			let html = "";
+			html += "<div class='row text-center fw-bold mt-3'><div class='col'><h4>" + objYear + "년 " + objMonth + "월</h4></div></div>"
+			html += "<div class='row border-bottom fw-bold text-center'>";
+			html += "<div class='col text-danger'>일</div>";
+			html += "<div class='col'>월</div>";
+			html += "<div class='col'>화</div>";
+			html += "<div class='col'>수</div>";
+			html += "<div class='col'>목</div>";
+			html += "<div class='col'>금</div>";
+			html += "<div class='col text-primary'>토</div> </div>";
+
+			for(let i = 1; i <= Number(fDay + lDay); i++)
+			{
+				if(i % 7 == 1)
+				{
+					html += "</div> <div class='row'>";
+				}
+				
+				if(i <= fDay)
+				{
+					html += "<div class='col'> </div>";
+				} else
+				{
+					if(i % 7 == 0)
+					{
+						html += "<div class='col text-center text-primary' id='myid"+i+"'>" + Number(i - fDay) + "</div>"
+					} else if(i % 7 == 1) 
+					{
+						html += "<div class='col text-center text-danger' id='myid"+i+"'>" + Number(i - fDay) + "</div>"
+					} else 
+					{
+						html += "<div class='col text-center' id='myid"+i+"'>" + Number(i - fDay) + "</div>"
+					}
+				}
+
+			}
+
+			let j = Number(fDay + lDay + 1);
+			while(true)
+			{
+				if(j % 7 == 1)
+					break;
+				html += '<div class="col"></div>';
+				j++;
+			}
+			display.innerHTML += html;
+			let objClass = document.getElementById('myid'+Number(objDay+fDay));
+			console.log(objClass.className);
+			objClass.className = objClass.className + " bg-warning rounded-pill";
+			console.log(objClass.className);
+		}
+	</script>
+</div> <!--container-->
+</body>
+</html>

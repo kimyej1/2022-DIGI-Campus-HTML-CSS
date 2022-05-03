@@ -1,0 +1,186 @@
+/* 
+    css/style.css 주석달기: 자바 멀티라인 주석
+    선택자(Selector)
+    태그 : li, body
+    클래스 : .className
+    아이디 : #idName
+*/
+
+html, body {
+    /* padding: 40px*/
+}
+
+.kbstarbg {
+    background-color:#eaf8f4
+}
+
+.ellipsis { /* ellipsis : 말줄임표(...) */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 0;
+}
+
+.row {line-height: 200%; min-width: 100%; min-height: 30px; height:auto; padding-top: 5px;border: 0px solid #FFFFFF}
+.rowline {line-height: 200%;min-height: 30px; border-bottom: 1px dotted #4b4a4a; padding-top:4px; padding-bottom: 4px;}
+.colLine {line-height: 200%; min-height: 30px; border-bottom: 1px dotted #DDDDDD; padding-top:4px; padding-bottom: 4px;}
+.icon {vertical-align: text-bottom;} /* text 아래쪽에 아이콘을 맞춰줘 (위로 뜨지 않게) */
+
+table {
+    border-collapse: collapse;
+}
+
+a:link { text-decoration:none; color:#333333;}
+a:hover { text-decoration:none; color:#333333;}
+a:visited { text-decoration:none; }
+
+.kbtitle {
+    font-weight: bold;
+    color: white;
+    background-color: #929292;
+    border-radius: 30px;
+    text-align: center;
+}
+
+.kblink {
+    font-size: 15px;
+    color: lightslategray;
+    text-decoration: underline;
+}
+
+.kbcontainer {
+    margin-top: 5px;
+    background-color: #e0e0e0;
+    padding: 10px;
+}
+
+.team {
+    font-weight: bold;
+    color:#FF00FF;
+    background-color: #FFFF00;
+}
+
+.area {
+    font-weight: bold;
+    color: #0000FF;
+    background-color: #d58ee7ad;
+}
+
+p {
+    line-height: 200%;
+    font-size: 17px;
+    text-align: justify;
+}
+
+.paragraph {
+    line-height: 180%;
+    font-size: 15px;
+    margin: 20px; /* padding : 안쪽 여백, margin : 바깥쪽 여백 */
+    padding: 0px 20px 30px 40px; /* top부터 시계방향으로 */
+    border: 2px dotted #FF0000; /* solid : 실선, dotted : 점선 */
+}
+
+li {
+    /*
+    list-style-type: square; -> bullet 모양 바꿔주기
+    list-style-image: url('img/kbstar.gif'); → bullet 대신 이미지(또는 움짤) 넣어주기
+    */
+}
+
+#redbox {
+    border:1px solid #FF0000;
+}
+
+.test1 {
+    font-weight: bold;
+}
+
+.test2 {
+    font-family: 궁서; /* 서체 */
+}
+
+h1 {/*
+    background-color: rgba(173, 136, 230, 0.5);  --> rgb, rgba(rgb + 알파(투명도: 0~1)) 
+    border-radius: 0px 10px 20px 30px; /* left-top 부터 시계방향으로 */
+}
+
+#aaa {
+    background-color: #65e0e0;
+    float:left; /* float : 넘치지 않으면 옆에다 붙이고, 넘치면 밑으로 내리고 (java flowlayout처럼) */
+    width: 300px;
+}
+
+#bbb {
+    background-color: #FFFF00;
+    margin-left: 20px;
+    float:right;
+    width: 200px;
+    height: 300px;
+}
+
+#ccc {
+    background-color: #96e993;
+    position:absolute;
+    top:400px;
+    left:500px;
+}
+
+#ddd {
+    background-color: #e6b367;
+}
+
+#eee {
+    background-color: #af8dee;
+}
+
+#fff {
+    background-color: #f16d6d;
+}
+
+.date {
+    font-size:medium;
+    color:#999999
+}
+
+.teamname {
+    color:#0000FF;
+    background-color:rgba(173, 136, 230, 0.5);
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.name {
+    font-family: 궁서;
+    font-size: x-large;
+    color:mediumorchid;
+    border-style:solid;
+    border-color: #9dff00;
+    border-radius: 50px;
+}
+
+.player {
+    background-color: rgba(136, 158, 230, 0.5);
+    font-weight: bold;
+    font-style: italic;
+    font-size: 20px;
+}
+
+.nation {
+    background-color: #b41d1d;
+    color: white;
+    border-radius: 10px;
+}
+
+.city {
+    background-color: #f39404;
+    color:white;
+    border-radius: 10px;
+}
+
+.ending {
+    border-color:maroon;
+    border-style: dashed;
+    background-color: #99999973;
+    margin: 50px;
+    text-align:center
+}

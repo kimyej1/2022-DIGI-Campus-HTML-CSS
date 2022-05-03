@@ -1,0 +1,142 @@
+<script>
+    function controlClick()
+    {
+        // alert('click');
+        let idClick = document.querySelector('#idClick');
+        idClick.className = "col text-primary text-end border";
+    }
+    function controlDblClick(obj)
+    {
+        alert(obj.innerText);
+    }
+    function overImage(obj) // obj은 이름 짓기 나름인데.. 이미지는 객체니까
+    {
+        // son -> paris
+        // alert(obj.src);
+        obj.src ="data/img/paris.jpeg";
+    }
+    function outImage(obj)
+    {
+        obj.src="data/img/son.jpg";
+    }
+    
+    gCount = 0; // '전역변수' 하나 만들어서 전체적인 마우스무브를 카운트하고싶어
+    function moveMouse(obj)
+    {
+        console.log("move" + (++gCount));
+        // count++ : 현재값 쓰고 더해라 : 0부터 출력 시작
+        // ++count : 먼저 더하고 써라 : 1부터 출력 시작
+    }
+    function downMouse(obj)
+    {
+        console.log("down");
+    }
+    function upMouse(obj)
+    {
+        console.log("up");
+    }
+    function keyDown()
+    {
+        console.log("keyDown");
+    }
+    function keyUp()
+    {
+        console.log("keyUp");
+    }
+    function keyPress()
+    {
+        console.log("keyPress");
+    }
+    function keyFocus()
+    {
+        let help = document.querySelector('#help');
+        help.className = 'col text-primary';
+        help.innerText = '이름을 입력하세요.';
+    }
+    function keyBlur()
+    {
+        let help = document.querySelector('#help');
+        // help.className = 'col';
+        help.innerText = '';
+    }
+    function controlChange(obj)
+    {
+        // 'this' 이용
+        if(obj.value != '0') // ===선택===(value=0) 일때는 무시해줘야함
+        {
+            alert(obj.value);
+        }
+
+        // 'name' 이용
+        var f = document.testForm;
+        alert(f.city.value);
+    }
+    function showHide(obj)
+    {
+        // alert(obj.checked); -> true/false로 나옴
+        let idShow = document.querySelector('#idShow');
+        if(obj.checked == true) // 체크 되어있으면~
+        {
+            idShow.style.display = '';
+        } else // 체크 안되어있으면~
+        {
+            idShow.style.display='none'; // idShow.style='display:none'; 써도 됨
+        }
+    }
+</script>
+
+<div class="row">
+    <div class="col-2">onClick</div>
+    <div class="col" id="idClick" onClick="controlClick()"> <!-- 버튼에만 이벤트 X, 아무데나 가능 -->
+        Col EVENT
+    </div>
+</div>
+<div class="row">
+    <div class="col-2">onDblClick</div>
+    <div class="col" onDblClick="controlDblClick(this)">Double Click Event</div> <!-- id 없이 this 사용 -->
+</div>
+<div class="row">
+    <div class="col-2">Mouse</div>
+    <div class="col">
+        <img src="data/img/son.jpg" class="img-fluid rounded" onMouseOver=overImage(this) onMouseOut="outImage(this)" 
+        onMouseMove="moveMouse(this)" onMouseDown="downMouse(this)" onMouseUp="upMouse(this)">
+        <!-- onMouseMove : 마우스 움직임 감지, onMouseDown : 마우스 클릭된 상태, onMouseUp : 마우스 클릭했다가 뗀 상태 -->
+    </div>
+</div>
+<div class="row">
+    <div class="col-2">Key</div>
+    <div class="col">
+        <input type="text" id="idKey" onKeyUp=keyUp() onKeyPress=keyPress() onKeyDown=keyDown() class="form-control"
+        onFocus="keyFocus()" onBlur="keyBlur()"> <!-- onFocus : 포커싱, onBlur : 포커스 아웃 -->
+        <!-- shift/ctrl 이런 키는 down/up, 123ABC 이렇게 화면에 입력되는 키는 down/press/up, (근데 한글은 down/up..영어는 down/press/up..) -->
+    </div>
+</div>
+<div class="row">
+    <div class="col-2">도움말</div>
+    <div class="col" id="help"></div>
+</div>
+
+<form name="testForm">
+    <div class="row">
+        <div class="col-2">onChange</div>
+        <div class="col">
+            <select name='city' class="form-control" onChange="controlChange(this)"> <!-- this로 읽을 수도 있고, name으로 읽을 수도 있고 -->
+            <!-- 이벤트만 발생하고 끝이면 this 안써도되고, 이 값을 불러와서 뭘 더 하고싶으면 써야함 (선택한 지역에 따라 화면에 뭘 뿌려주거나..)-->
+                <option value="0"> === 선택하세요 === </option>
+                <option value="1">서울</option>
+                <option value="2">경기</option>
+            </select>
+        </div>
+    </div>
+</form>
+
+<div class="row">
+    <div class="col-2">onClick</div>
+    <div class="col">
+        <input type="checkbox" onClick="showHide(this)" checked> show-hide
+    </div>
+</div>
+<div class="row" id="idShow">
+    <div class="col-2">AAA</div>
+    <div class="col">BBB</div>
+</div>
