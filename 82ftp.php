@@ -111,8 +111,18 @@
     {
         echo "no fname <br>";
     }
-
     ?>
+
+    <script>
+        function jsTest()
+        {
+            let msg = prompt('Insert Message');
+            alert("your msg = " + msg);
+        }
+        jsTest();
+
+    </script>
+
         <form method="post" action="<?php echo $_SERVER["PHP_SELF"]?>?cmd=<?php echo $cmd?>">
             <div class="row">
                 <div class="col">

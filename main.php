@@ -167,6 +167,8 @@
 									<ul class="dropdown-menu">
 										<li><a class="dropdown-item" href="main.php?cmd=80upload">File Upload</a></li>
 										<li><a class="dropdown-item" href="main.php?cmd=82ftp">FTP</a></li>
+										<li><a class="dropdown-item" href="main.php?cmd=83brute">무차별대입(brute forse)</a></li>
+										<li><a class="dropdown-item" href="main.php?cmd=84brute">무차별대입 2</a></li>
 									</ul>
 								</li>
 
