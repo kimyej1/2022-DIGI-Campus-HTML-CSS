@@ -9,6 +9,9 @@
     $sessEmail="__kbstar_email__";
     $sessAddress="__kbstar_address__";
 
+    $sessLimit="__kbstar_limit__";
+    $sessOrder="__kbstar_order__";
+
     $confTest=1234;
 
     $levelList[1]="회원";

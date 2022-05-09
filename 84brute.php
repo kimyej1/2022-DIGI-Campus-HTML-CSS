@@ -31,7 +31,7 @@
     
         if($data)
         {
-            echo "Data found! Passwd is ". $passwd.".<br> (Cnt : ".$cnt."<br>";
+            echo "Data found! Passwd is ". $passwd.".<br> (Cnt : ".$cnt.")<br>";
             exit;
         }else
         {

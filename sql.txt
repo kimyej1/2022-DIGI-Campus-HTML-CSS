@@ -262,3 +262,14 @@ create table members(
 insert into members (id, name, pass, level) values('admin', 'KB관리', password('1111'), '9'); -- password() 안에 넣어주면 암호화
 
 alter table members add age int(3) default '10'; -- members에 age항목 추가하기
+
+
+
+create table log_table (
+    idx   int(20) auto_increment,
+    ip      char(20),
+    cmd     char(30),
+    uri     char(255),
+    time    datetime,
+    primary key(idx)
+);

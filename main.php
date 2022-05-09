@@ -20,6 +20,42 @@
 	}
 
 	//phpinfo();
+
+
+	$ip = $_SERVER["REMOTE_ADDR"];
+	if(!isset($_GET["cmd"]))
+		$pcmd = "";		// param cmd (cmd 이름 겹칠까봐)
+	else
+		$pcmd = $_GET["cmd"];
+
+	$uri = $_SERVER["REQUEST_URI"];
+
+	// 85log.php
+	// 1분전~지금 사이에 일정 횟수 이상 접속 시도한 IP 걸러내기
+	$sql = "SELECT ADDDATE(now(), INTERVAL -1 MINUTE) AS checktime";
+	$result = mysqli_query($conn, $sql);
+	$data = mysqli_fetch_array($result);
+	$checktime = $data["checktime"];
+
+	$sql = "SELECT count(*) AS ipcount FROM log_table WHERE time>'$checktime' and ip='$ip'";
+	$result = mysqli_query($conn, $sql);
+	$data = mysqli_fetch_array($result);
+
+	echo "1분 내 클릭 횟수 : ".$data["ipcount"]."<br>";
+
+	// if($data["ipcount"] > 10)
+	// {
+	// 	// brute force attack 막기
+	// 	echo "
+	// 		<script>
+	// 			location.href='http://warning.or.kr';
+	// 		</script>
+	// 	";
+	// }
+
+	$sql = "INSERT INTO log_table (ip, cmd, uri, time) VALUES ('$ip', '$pcmd', '$uri', now() )";
+	$result = mysqli_query($conn, $sql);
+
 ?>
 
 <!doctype html> 
@@ -169,6 +205,8 @@
 										<li><a class="dropdown-item" href="main.php?cmd=82ftp">FTP</a></li>
 										<li><a class="dropdown-item" href="main.php?cmd=83brute">무차별대입(brute forse)</a></li>
 										<li><a class="dropdown-item" href="main.php?cmd=84brute">무차별대입 2</a></li>
+										<li><a class="dropdown-item" href="main.php?cmd=85log">로그 관리</a></li>
+										<li><a class="dropdown-item" href="main.php?cmd=86log">로그 그래프</a></li>
 									</ul>
 								</li>
 
