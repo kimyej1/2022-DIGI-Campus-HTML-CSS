@@ -27,9 +27,10 @@ SELECT distinct cmd FROM log_table;<br>
 
             while($data)
             {
-                $clickSql = "SELECT count(*) as sumclick, count(distinct ip) as sumip from log_table where cmd='$data[cmd]'";
+                $clickSql = "SELECT count(*) as sumclick, count(distinct ip) as sumip from log_table where cmd='$data[cmd]' and time>'$graphtime'";
                 $clickResult = mysqli_query($conn, $clickSql);
                 $clickData = mysqli_fetch_array($clickResult);
+                // $ipCount = mysqli_num_rows($ipResult); -- select distinct ip...로 해서 카운트 안걸고 id만 뽑았을 때는 fetch array 대신 이렇게 결과출력!
 
                 echo "[ '$data[cmd]', $clickData[sumip], $clickData[sumclick] ],";
                 $data = mysqli_fetch_array($result);

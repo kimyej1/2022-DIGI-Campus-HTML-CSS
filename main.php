@@ -53,6 +53,8 @@
 	// 	";
 	// }
 
+	
+
 	$sql = "INSERT INTO log_table (ip, cmd, uri, time) VALUES ('$ip', '$pcmd', '$uri', now() )";
 	$result = mysqli_query($conn, $sql);
 
