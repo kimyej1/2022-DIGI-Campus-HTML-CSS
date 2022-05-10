@@ -62,6 +62,9 @@
 	$sql = "INSERT INTO log_table (ip, cmd, uri, time) VALUES ('$ip', '$pcmd', '$uri', now() )";
 	$result = mysqli_query($conn, $sql);
 
+	$pass = "1111";
+	$pass = md5($pass);
+
 ?>
 
 <!doctype html> 
@@ -76,7 +79,8 @@
  		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> 
  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
  		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script> 
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script> 	<!-- 89cookie -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/md5.js"></script> 		<!-- 90xss -->
 			<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"> 
  		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> 
 
@@ -89,6 +93,17 @@
 					$(this).hide();
 				});
 			});
+
+			// 91md5
+			let pass = "1111";
+			// let md5pass = CryptoJS.MD5(pass).toString(); // 날라가는 데이터 잡아채서 비번 알아낼수도있으니까 DB에서 password()처리 해주지 않고 날릴때부터 암호화해서 날림
+			let md5pass = kbmd5(pass);					 // 외우기 어려우니까 함수로 만들어서 쓰기 (윗줄하고 완전 똑같음)
+			alert("pass = " + md5pass);				     // DB에서 암호화 한 내용과 동일한지 확인
+
+			function kbmd5(pass)
+			{
+				return CryptoJS.MD5(pass).toString();
+			}
 		</script>
 
  	</head> 
@@ -217,6 +232,8 @@
 										<li><a class="dropdown-item" href="main.php?cmd=87bbs">미니 게시판</a></li>
 										<li><a class="dropdown-item" href="main.php?cmd=88bbs">보안 게시판</a></li>
 										<li><a class="dropdown-item" href="main.php?cmd=89cookie">쿠키</a></li>
+										<li><a class="dropdown-item" href="main.php?cmd=90xss">Cross-site Scripting</a></li>
+										<li><a class="dropdown-item" href="main.php?cmd=91md5">MD5</a></li>
 									</ul>
 								</li>
 
