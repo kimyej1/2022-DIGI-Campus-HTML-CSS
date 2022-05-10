@@ -5,6 +5,10 @@ top 10만 그래프로 표시하시오. (꺾은선 그래프로 클릭횟수, ip
 SELECT ADDDATE(now(), INTERVAL -1 HOUR) AS checktime;<br>
 SELECT distinct cmd FROM log_table;<br>
 
+<?php
+    $sendMsg = "비정상적인 접근이 감지되었습니다. KBstar.com";
+    include "sendSMS.php";
+?>
 
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

@@ -43,15 +43,19 @@
 
 	echo "1분 내 클릭 횟수 : ".$data["ipcount"]."<br>";
 
-	// if($data["ipcount"] > 10)
-	// {
-	// 	// brute force attack 막기
-	// 	echo "
-	// 		<script>
-	// 			location.href='http://warning.or.kr';
-	// 		</script>
-	// 	";
-	// }
+	if($data["ipcount"] > 10)
+	{
+		// brute force attack 막기
+		// $sendMsg = "비정상적인 접근이 감지되었습니다. KBstar.com";
+		// include "sendSMS.php";
+
+		echo "
+			<script>
+				alert('비정상');
+				// location.href='http://warning.or.kr';
+			</script>
+		";
+	}
 
 	
 
@@ -209,6 +213,9 @@
 										<li><a class="dropdown-item" href="main.php?cmd=84brute">무차별대입 2</a></li>
 										<li><a class="dropdown-item" href="main.php?cmd=85log">로그 관리</a></li>
 										<li><a class="dropdown-item" href="main.php?cmd=86log">로그 그래프</a></li>
+										<li><a class="dropdown-item" href="main.php?cmd=87bbs">미니 게시판</a></li>
+										<li><a class="dropdown-item" href="main.php?cmd=88bbs">보안 게시판</a></li>
+										<li><a class="dropdown-item" href="main.php?cmd=89cookie">쿠키</a></li>
 									</ul>
 								</li>
 
