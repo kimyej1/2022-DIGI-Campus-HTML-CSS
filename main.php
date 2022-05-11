@@ -98,7 +98,7 @@
 			let pass = "1111";
 			// let md5pass = CryptoJS.MD5(pass).toString(); // 날라가는 데이터 잡아채서 비번 알아낼수도있으니까 DB에서 password()처리 해주지 않고 날릴때부터 암호화해서 날림
 			let md5pass = kbmd5(pass);					 // 외우기 어려우니까 함수로 만들어서 쓰기 (윗줄하고 완전 똑같음)
-			alert("pass = " + md5pass);				     // DB에서 암호화 한 내용과 동일한지 확인
+			// alert("pass = " + md5pass);				     // DB에서 암호화 한 내용과 동일한지 확인
 
 			function kbmd5(pass)
 			{

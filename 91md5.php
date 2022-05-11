@@ -31,7 +31,7 @@
         $("#kbstarpass").val("");           // submit 전에 kbstarpass는 비워놓고, kbstarpassmd5 값을 암호화해서 날릴거임
         $("#kbstarpassmd5").val(md5pass);
 
-        // return false;   // return false : 여기서 멈춤, 다음 진행 안함
+        // return false;   // 여기서 멈춤, 다음 진행 안함
     }
 
     function setCookie(cookieName, value, expireDay)
@@ -93,14 +93,6 @@
 </script>
 
 <?php
-    if(isset($_GET["mode"]) and $_GET["mode"] == "login")
-    {
-        $myid = $_POST["kbstarid"];
-        $mypass = $_POST["kbstarpass"];
-        $mypass2 = $_POST["kbstarpassmd5"];     // 암호화된 비밀번호
-        
-        echo "id = $myid, pass = $mypass, pass2 = $mypass2<br>";
-    }
     /*
         create table member2(
             idx     int(10) auto_increment,
@@ -110,7 +102,7 @@
             level   int(3) default '1',
 
             primary key(idx)
-        )
+        );
 
         insert into member2 (id, pass, name, level) 
             values ('admin', 'b59c67bf196a4758191e42f76670ceba', '관리자', '9');
@@ -118,34 +110,101 @@
         insert into member2 (id, pass, name, level) 
             values ('test', 'b59c67bf196a4758191e42f76670ceba', '테스터', '1');  
     */
+
+    if(isset($_GET["mode"]) and $_GET["mode"] == "login")
+    {
+        $kbstarid = $_POST["kbstarid"];
+        $kbstarpass = $_POST["kbstarpassmd5"];  // 암호화된 비밀번호
+
+        $sql = "SELECT * FROM member2 WHERE id='$kbstarid' and pass='$kbstarpass'";
+        $result = mysqli_query($conn, $sql);
+        $data = mysqli_fetch_array($result);
+    
+        if($data)
+        {
+            $_SESSION[$sessName2] = $data["name"];
+            $_SESSION[$sessId2] = $data["id"];
+            $_SESSION[$sessLevel2] = $data["level"];
+            $msg = "$_SESSION[$sessName2] 님, 반갑습니다.";
+        }else
+        {
+            $msg = "아이디와 비밀번호를 확인하세요";
+        }
+    
+        echo "
+        <script>
+            alert('$msg');
+            location.href='main.php?cmd=$cmd';
+        </script>
+        ";
+    }
+
+    if(isset($_GET["mode"]) and $_GET["mode"] == "logout")
+    {
+        $outName = $_SESSION[$sessName2];
+        $msg = "$outName"." 님, 안녕히가세요.";
+
+        session_destroy();
+
+        echo "
+            <script>
+                alert('$msg');
+                location.href='main.php?cmd=$cmd';
+            </script>
+        ";
+    }
 ?>
 
 <div class="row">
     <div class="col">Cookie</div>
 </div>
 <!-- 90xss에서 button, onClick => submit, onSubmit 으로 바꿈 -->
-<form method="post" action="main.php?cmd=<?php echo $cmd;?>&mode=login" onSubmit="return checkCookieMd5()">
-    <div class="row">
-        <div class="col-2">
-            <input type="text" name="kbstarid" id="kbstarid" class="form-control"> 
-            <!-- id/pw 미리 셋팅해줄 때 'value=' 해서 넣으면, 페이지 소스보기 했을때 다 보임 => 페이지 로딩 끝나고 스크립트로 처리해줘야함! (setCookieIfSaved())--> 
-        </div>
-        <div class="col-2">
-            <!-- submit 전에 kbstarpass는 비워놓고, kbstarpassmd5로 옮긴담에 옮긴 값을 암호화해서 날릴거임 -->
-            <input type="password" name="kbstarpass" id="kbstarpass" class="form-control"> 
-            <input type="hidden" name="kbstarpassmd5" id="kbstarpassmd5" class="form-control"> <!-- hidden -> text로 바꿔보면 암호화되어서 들어가는거 볼 수 있음 -->
-        </div>
-        <div class="col-2">
-            <input type="checkbox" name="saveid" id="saveid"> ID 저장
-        </div>
-        <div class="col-2">
-            <input type="checkbox" name="savepass" id="savepass"> PW 저장
-        </div>
-        <div class="col-2">
-            <button type="submit" class="btn btn-primary">로그인</button>
-        </div>
-    </div>
-</form>
+
+<?php
+    if(isset($_SESSION[$sessId2]))
+    {
+        ?>
+        <script>
+            function goLogout()
+            {
+                location.href='main.php?cmd=<?php echo $cmd;?>&mode=logout';
+            }
+        </script>
+        <div class="col">
+            <span class='text-primary fw-bold'><?php echo "$_SESSION[$sessName2]" ?></span> 님 반갑습니다.
+            <button type='button' class='btn btn-danger' onClick=goLogout()>Logout</button>
+        </div>	
+        <?php
+    } else
+    {
+        ?>
+        <form method="post" action="main.php?cmd=<?php echo $cmd;?>&mode=login" onSubmit="return checkCookieMd5()">
+            <div class="row">
+                <div class="col-2">
+                    <input type="text" name="kbstarid" id="kbstarid" class="form-control"> 
+                    <!-- id/pw 미리 셋팅해줄 때 'value=' 해서 넣으면, 페이지 소스보기 했을때 다 보임 => 페이지 로딩 끝나고 스크립트로 처리해줘야함! (setCookieIfSaved())--> 
+                </div>
+                <div class="col-2">
+                    <!-- submit 전에 kbstarpass는 비워놓고, kbstarpassmd5로 옮긴담에 옮긴 값을 암호화해서 날릴거임 -->
+                    <input type="password" name="kbstarpass" id="kbstarpass" class="form-control"> 
+                    <input type="hidden" name="kbstarpassmd5" id="kbstarpassmd5" class="form-control"> <!-- hidden -> text로 바꿔보면 암호화되어서 들어가는거 볼 수 있음 -->
+                </div>
+                <div class="col-2">
+                    <input type="checkbox" name="saveid" id="saveid"> ID 저장
+                </div>
+                <div class="col-2">
+                    <input type="checkbox" name="savepass" id="savepass"> PW 저장
+                </div>
+                <div class="col-2">
+                    <button type="submit" class="btn btn-primary">로그인</button>
+                </div>
+            </div>
+        </form>
+        <?php
+    }
+?>
+
+
 
 <script>
     setCookieIfSaved();

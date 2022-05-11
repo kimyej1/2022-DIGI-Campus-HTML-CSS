@@ -20,6 +20,11 @@
 
     $adminLevel=9; // 관리자 레벨은 9번이다!
 
+    // 91md5
+    $sessName2="__kbstar_name2__";
+    $sessId2="__kbstar_id2__";
+    $sessLevel2="__kbstar_level2__";
+
     $kakaoKey='e9227bdff6960d55c17f5e880b09bd09';
 
 ?>
